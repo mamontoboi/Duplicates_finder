@@ -24,14 +24,16 @@ def find_duplicates(path):
 
     # Run through the dict of hashes and notify if value contain more than one path:
     count = 0
-    for file_hash, file_paths in file_hashes.items():
-        if len(file_paths) > 1:
-            print(f"Duplicate files for {file_hash} in locations:")
-            count += 1
-            number_of_reps = 0
-            for file_path in file_paths:
-                number_of_reps += 1
-                print(f" {number_of_reps} - {file_path}")
+    with open('list_of_duplicates.txt', 'w') as f:
+        for file_hash, file_paths in file_hashes.items():
+            if len(file_paths) > 1:
+                f.write(f"Duplicate files for {file_hash} in locations: \n")
+                count += 1
+                number_of_reps = 0
+                for file_path in file_paths:
+                    number_of_reps += 1
+                    f.write(f" + {number_of_reps} - {file_path} \n")
+                f.write('\n')
 
     if not count:
         print("No duplicates of files were found")
